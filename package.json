@@ -24,7 +24,8 @@
   },
   "homepage": "https://github.com/danylomaster/node-knex-swagger-northwind#readme",
   "devDependencies": {
-    "eslint": "^4.19.0"
+    "eslint": "^4.19.0",
+    "faker": "^4.1.0"
   },
   "dependencies": {
     "dotenv": "^5.0.1",
