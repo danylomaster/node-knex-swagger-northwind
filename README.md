@@ -15,3 +15,18 @@
 ### To run seed files, execute:
 
 > knex seed:run
+
+---
+
+## Files for database (in /db/sql)
+
+* Model:
+  * northwind.mwb (MySQL Workbench v6.2)
+* EER Diagram:
+  * northwind-erd.pdf
+  * northwind-erd.png
+* Structure:
+  * northwind.sql
+  * northwind-default-current-timestamp.sql (uses DEFAULT CURRENT TIMESTAMP, requires MySQL 5.6.5+)
+* Data:
+  * northwind-data.sql
