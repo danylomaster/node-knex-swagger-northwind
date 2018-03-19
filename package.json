@@ -1,0 +1,37 @@
+{
+  "name": "knex-swagger-northwind",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danylomaster/node-knex-swagger-northwind.git"
+  },
+  "keywords": [
+    "node",
+    "swagger",
+    "knex",
+    "northind"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danylomaster/node-knex-swagger-northwind/issues"
+  },
+  "homepage": "https://github.com/danylomaster/node-knex-swagger-northwind#readme",
+  "devDependencies": {
+    "eslint": "^4.19.0"
+  },
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "js-yaml": "^3.11.0",
+    "knex": "^0.14.4",
+    "mysql": "^2.15.0",
+    "swagger-tools": "^0.10.3"
+  }
+}
