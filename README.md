@@ -4,6 +4,12 @@
 
 > npm install knex -g
 
+## To start server:
+
+> npm run start
+
+---
+
 ### Update the database matching your NODE_ENV by running:
 
 > knex migrate:latest
