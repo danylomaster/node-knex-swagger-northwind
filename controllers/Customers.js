@@ -5,6 +5,12 @@ const table_name = "customers";
 var utils = require("../utils/writer.js");
 var Customers = require("../service/CustomersService");
 
+const bookshelf = require("../db/bookshelf");
+
+var Customer = bookshelf.Model.extend({
+  tableName: "customers"
+});
+
 module.exports.createCustomer = function createCustomer(req, res, next) {
   var company = req.swagger.params["company"].value;
   var last_name = req.swagger.params["last_name"].value;
@@ -23,25 +29,45 @@ module.exports.createCustomer = function createCustomer(req, res, next) {
   var web_page = req.swagger.params["web_page"].value;
   var notes = req.swagger.params["notes"].value;
   var attachments = req.swagger.params["attachments"].value;
-  Customers.createCustomer(
-    company,
-    last_name,
-    first_name,
-    email_address,
-    job_title,
-    business_phone,
-    home_phone,
-    mobile_phone,
-    fax_number,
-    address,
-    city,
-    state_province,
-    zip_postal_code,
-    country_region,
-    web_page,
-    notes,
-    attachments
-  )
+  // Customers.createCustomer(
+  //   company,
+  //   last_name,
+  //   first_name,
+  //   email_address,
+  //   job_title,
+  //   business_phone,
+  //   home_phone,
+  //   mobile_phone,
+  //   fax_number,
+  //   address,
+  //   city,
+  //   state_province,
+  //   zip_postal_code,
+  //   country_region,
+  //   web_page,
+  //   notes,
+  //   attachments
+  // )
+  new Customer({
+    company: company,
+    last_name: last_name,
+    first_name: first_name,
+    email_address: email_address,
+    job_title: job_title,
+    business_phone: business_phone,
+    home_phone: home_phone,
+    mobile_phone: mobile_phone,
+    fax_number: fax_number,
+    address: address,
+    city: city,
+    state_province: state_province,
+    zip_postal_code: zip_postal_code,
+    country_region: country_region,
+    web_page: web_page,
+    notes: notes,
+    attachments: attachments
+  })
+    .save()
     .then(function(response) {
       utils.writeJson(res, response);
     })
@@ -52,27 +78,46 @@ module.exports.createCustomer = function createCustomer(req, res, next) {
 
 module.exports.deleteCustomer = function deleteCustomer(req, res, next) {
   var customerId = req.swagger.params["customerId"].value;
-  Customers.deleteCustomer(customerId)
+  new Customer({ id: customerId })
+    .destroy()
     .then(function(response) {
       utils.writeJson(res, response);
     })
     .catch(function(response) {
       utils.writeJson(res, response);
     });
+  // Customers.deleteCustomer(customerId)
+  //   .then(function(response) {
+  //     utils.writeJson(res, response);
+  //   })
+  //   .catch(function(response) {
+  //     utils.writeJson(res, response);
+  //   });
 };
 
 module.exports.getCustomerById = function getCustomerById(req, res, next) {
   var customerId = req.swagger.params["customerId"].value;
-  knex
-    .select("*")
-    .from(table_name)
+
+  new Customer()
     .where("id", customerId)
+    .fetch()
     .then(function(response) {
       utils.writeJson(res, response);
     })
     .catch(function(response) {
       utils.writeJson(res, response);
     });
+
+  // knex
+  //   .select("*")
+  //   .from(table_name)
+  //   .where("id", customerId)
+  //   .then(function(response) {
+  //     utils.writeJson(res, response);
+  //   })
+  //   .catch(function(response) {
+  //     utils.writeJson(res, response);
+  //   });
 
   // Customers.getCustomerById(customerId)
   //   .then(function(response) {
@@ -84,15 +129,31 @@ module.exports.getCustomerById = function getCustomerById(req, res, next) {
 };
 
 module.exports.getCustomers = function getCustomers(req, res, next) {
-  knex
-    .select("*")
-    .from(table_name)
+  // new Article().fetchAll()
+  //   .then(function(articles) {
+  //     res.send(articles.toJSON());
+  //   }).catch(function(error) {
+  //     console.log(error);
+  //     res.send('An error occured');
+  //   });
+  new Customer()
+    .fetchAll()
     .then(function(response) {
       utils.writeJson(res, response);
     })
     .catch(function(response) {
       utils.writeJson(res, response);
     });
+
+  // knex
+  //   .select("*")
+  //   .from(table_name)
+  //   .then(function(response) {
+  //     utils.writeJson(res, response);
+  //   })
+  //   .catch(function(response) {
+  //     utils.writeJson(res, response);
+  //   });
   // Customers.getCustomers()
   //   .then(function(response) {
   //     utils.writeJson(res, response);
@@ -121,26 +182,50 @@ module.exports.updateCustomer = function updateCustomer(req, res, next) {
   var web_page = req.swagger.params["web_page"].value;
   var notes = req.swagger.params["notes"].value;
   var attachments = req.swagger.params["attachments"].value;
-  Customers.updateCustomer(
-    customerId,
-    company,
-    last_name,
-    first_name,
-    email_address,
-    job_title,
-    business_phone,
-    home_phone,
-    mobile_phone,
-    fax_number,
-    address,
-    city,
-    state_province,
-    zip_postal_code,
-    country_region,
-    web_page,
-    notes,
-    attachments
-  )
+  // Customers.updateCustomer(
+  //   customerId,
+  //   company,
+  //   last_name,
+  //   first_name,
+  //   email_address,
+  //   job_title,
+  //   business_phone,
+  //   home_phone,
+  //   mobile_phone,
+  //   fax_number,
+  //   address,
+  //   city,
+  //   state_province,
+  //   zip_postal_code,
+  //   country_region,
+  //   web_page,
+  //   notes,
+  //   attachments
+  // )
+  new Customer()
+    .where("id", customerId)
+    .save(
+      {
+        company: company,
+        last_name: last_name,
+        first_name: first_name,
+        email_address: email_address,
+        job_title: job_title,
+        business_phone: business_phone,
+        home_phone: home_phone,
+        mobile_phone: mobile_phone,
+        fax_number: fax_number,
+        address: address,
+        city: city,
+        state_province: state_province,
+        zip_postal_code: zip_postal_code,
+        country_region: country_region,
+        web_page: web_page,
+        notes: notes,
+        attachments: attachments
+      },
+      { patch: true }
+    )
     .then(function(response) {
       utils.writeJson(res, response);
     })
